@@ -1,84 +1,119 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
+import DataBinder from '@icedesign/data-binder';
 import { Radio } from '@alifd/next';
 import CustomTable from '../../../../components/CustomTable';
 import TableFilter from '../TableFilter';
+import { delCategory, categoryList } from '../../../../api/apiUrl';
+import { postServer, getServer, hashUrl } from '../../../../api';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from './index.module.scss';
 
-const getData = (length = 10) => {
-  return Array.from({ length }).map((item, index) => {
-    return {
-      id: index + 1,
-      builder: `12022123${index}`,
-      name: '淘小宝',
-      description: '淘宝 Rax 项目构建器',
-      createTime: `2018-06-${index + 1}`,
-      executionTime: `2018-06-${index + 1}`,
-      approvalData: `2018-06-${index + 1}`,
-      officialVersion: `1.2.${index}`,
-      grayVersion: `2.2.${index}`,
-      state: '成功',
-    };
-  });
-};
-
+@withRouter
+@DataBinder({
+  findList: {
+    url: hashUrl(categoryList),
+    method: 'post',
+    params: {
+      page: 0,
+      size: 10,
+    },
+  },
+})
 export default class BuilderTable extends Component {
+
+  static displayName = 'BuilderTable';
+
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+  };
+
+  static defaultProps = {};
+
   state = {
     isLoading: false,
     data: [],
     activeIndex: null,
   };
 
-  componentDidMount() {
-    this.fetchData(10);
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterFormValue: {},
+    }
   }
 
-  mockApi = (len) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(getData(len));
-      }, 600);
-    });
-  };
+  componentDidMount() {
+    this.fetchData();
+  }
 
-  fetchData = (len) => {
-    this.setState(
-      {
-        isLoading: true,
+  jumpToPage = (page) => {
+    const { history } = this.props
+    history.push(page)
+  }
+
+  refuseExtractionConfirm = (id) => {
+    Dialog.confirm({
+      content: "确定要删除该分类信息吗？",
+      title: "警告",
+      locale: {
+        ok: "确认",
+        cancel: "取消"
       },
-      () => {
-        this.mockApi(len).then((data) => {
-          this.setState({
-            data,
-            isLoading: false,
-          });
-        });
-      }
-    );
-  };
-
-  handleSubmit = (len) => {
-    this.setState({
-      activeIndex: len,
+      onOk: () => this.refuseExtraction(id)
     });
-    this.fetchData(len);
+  }
+
+  async refuseExtraction(id) {
+    const that = this
+    let params = {state: "ACTIVE"};
+    let res = await postServer(delCategory + '/' + id, params)
+    let data = res.data;
+    if (data) {
+      if (data.code === 10000) {
+        Feedback.toast.success(data.msg);
+        setTimeout(() => that.fetchData(), 1000);
+      } else {
+        Feedback.toast.error(data.msg);
+        setTimeout(() => that.fetchData(), 1000);
+      }
+    }
+  }
+
+  fetchData = async (data) => {
+    let filterFormValue = { ...this.state.filterFormValue };
+    Object.keys(filterFormValue).forEach(function(key){
+      if (filterFormValue[key] === "")  filterFormValue[key] = undefined;
+ });
+    let param = data ? { ...data, ...filterFormValue } : filterFormValue;
+    // let param = {page: 0, size: 10,};
+    //console.log(param);
+    // let res = await postServer(accountList, param);
+    // console.log(res);
+    this.props.updateBindingData('findList', { 
+      url: hashUrl(categoryList),
+      data: param 
+    });
   };
 
-  renderState = (value) => {
-    return (
-      <div className={styles.state}>
-        <span className={styles.circle} />
-        <span className={styles.stateText}>{value}</span>
-      </div>
-    );
+  changePage = (currentPage) => {
+    this.fetchData({ page: currentPage - 1 });
   };
 
-  renderOper = () => {
-    return (
-      <div className={styles.oper}>
-        <a href="/">查看</a>
-      </div>
-    );
+  filterFormChange = (value) => {
+    this.setState({
+      filterFormValue: value,
+    });
+  };
+
+  filterTable = () => {
+    console.log(this.state.filterFormValue);
+    this.fetchData({
+      ...this.state.filterFormValue,
+    });
   };
 
   columnsConfig = () => {
@@ -121,14 +156,12 @@ export default class BuilderTable extends Component {
       {
         title: '状态',
         dataIndex: 'state',
-        key: 'state',
-        cell: this.renderState,
+        key: 'state'
       },
       {
         title: '详情',
         dataIndex: 'detail',
-        key: 'detail',
-        cell: this.renderOper,
+        key: 'detail'
       },
     ];
   };
@@ -150,6 +183,13 @@ export default class BuilderTable extends Component {
       },
     ];
 
+    let content;
+    const  { findList } = this.props.bindingData;
+    if (findList) {
+      content = findList.content;
+    }
+    if (!content) content = [{}];
+
     return (
       <IceContainer>
         <div className={styles.tableHead}>
@@ -157,7 +197,6 @@ export default class BuilderTable extends Component {
           <Radio.Group
             shape="button"
             value={activeIndex}
-            onChange={(value) => this.handleSubmit(value)}
           >
             {buttonGroup.map((item, index) => {
               return (
@@ -172,7 +211,7 @@ export default class BuilderTable extends Component {
             })}
           </Radio.Group>
         </div>
-        <TableFilter handleSubmit={() => this.handleSubmit(5)} />
+        <TableFilter />
         <CustomTable
           columns={this.columnsConfig()}
           dataSource={data}

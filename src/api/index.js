@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { serverUrl } from '../pages/url';
+import { serverUrl } from './url';
 import { createHashHistory } from 'history';
 
 axios.defaults.withCredentials = true;
