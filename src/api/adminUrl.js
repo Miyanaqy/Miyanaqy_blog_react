@@ -1,83 +1,83 @@
 
 /*编辑相册*/
-export const custmoerList = "/admin/album/edit";
+export const albumEdit = "/admin/album/edit";
 /*删除相册*/
-export const custmoerList = "/admin/album/delete";
+export const albumDelete = "/admin/album/delete";
 /*根据ID获取相册详情*/
-export const custmoerList = "/admin/album/findById";
+export const albumById = "/admin/album/findById";
 /*获取相册分页信息*/
-export const custmoerList = "/admin/album/findByPage";
+export const albumPage = "/admin/album/findByPage";
 
 /*编辑文章*/
-export const custmoerList = "/admin/article/edit";
+export const articleEdit = "/admin/article/edit";
 /*删除文章*/
-export const custmoerList = "/admin/article/delete";
+export const articleDelete = "/admin/article/delete";
 /*根据ID获取文章详情*/
-export const custmoerList = "/admin/article/findById";
+export const articleById = "/admin/article/findById";
 /*获取文章分页信息*/
-export const custmoerList = "/admin/article/findByPage";
+export const articlePage = "/admin/article/findByPage";
 
 /*删除评论*/
-export const custmoerList = "/admin/comment/delete";
+export const commentDelete = "/admin/comment/delete";
 /*根据ID获取评论详情*/
-export const custmoerList = "/admin/comment/findById";
+export const commentById = "/admin/comment/findById";
 /*获取评论分页信息*/
-export const custmoerList = "/admin/comment/findByPage";
+export const commentPage = "/admin/comment/findByPage";
 
 /*删除留言板*/
-export const custmoerList = "/admin/messageBoard/delete";
+export const messageBoardDelete = "/admin/messageBoard/delete";
 /*根据ID获取留言板详情*/
-export const custmoerList = "/admin/messageBoard/findById";
+export const messageBoardById = "/admin/messageBoard/findById";
 /*获取留言板分页信息*/
-export const custmoerList = "/admin/messageBoard/findByPage";
+export const messageBoardPage = "/admin/messageBoard/findByPage";
 
 /*编辑音乐信息*/
-export const custmoerList = "/admin/music/edit";
+export const musicEdit = "/admin/music/edit";
 /*删除音乐信息*/
-export const custmoerList = "/admin/music/delete";
+export const musicDelete = "/admin/music/delete";
 /*根据ID获取音乐详情*/
-export const custmoerList = "/admin/music/findById";
+export const musicById = "/admin/music/findById";
 /*获取音乐分页信息*/
-export const custmoerList = "/admin/music/findByPage";
+export const musicPage = "/admin/music/findByPage";
 
 /*添加公告信息*/
-export const custmoerList = "/admin/notice/add";
+export const noticeAdd = "/admin/notice/add";
 /*编辑公告信息*/
-export const custmoerList = "/admin/notice/edit";
+export const noticeEdit = "/admin/notice/edit";
 /*删除公告信息*/
-export const custmoerList = "/admin/notice/delete";
+export const noticeDelete = "/admin/notice/delete";
 /*根据ID获取公告详情*/
-export const custmoerList = "/admin/notice/findById";
+export const noticeById = "/admin/notice/findById";
 /*获取公告分页信息*/
-export const custmoerList = "/admin/notice/findByPage";
+export const noticePage = "/admin/notice/findByPage";
 
 /*编辑照片信息*/
-export const custmoerList = "/admin/photo/edit";
+export const photoEdit = "/admin/photo/edit";
 /*删除照片信息*/
-export const custmoerList = "/admin/photo/delete";
+export const photoDelete = "/admin/photo/delete";
 /*根据ID获取照片详情*/
-export const custmoerList = "/admin/photo/findById";
+export const photoById = "/admin/photo/findById";
 /*获取照片分页信息*/
-export const custmoerList = "/admin/photo/findByPage";
+export const photoPage = "/admin/photo/findByPage";
 
 /*添加系统消息*/
-export const custmoerList = "/admin/systemInformation/add";
+export const systemInformationAdd = "/admin/systemInformation/add";
 /*编辑系统消息*/
-export const custmoerList = "/admin/systemInformation/edit";
+export const systemInformationEdit = "/admin/systemInformation/edit";
 /*删除系统消息*/
-export const custmoerList = "/admin/systemInformation/delete";
+export const systemInformationDelete = "/admin/systemInformation/delete";
 /*根据ID获取系统消息详情*/
-export const custmoerList = "/admin/systemInformation/findById";
+export const systemInformationById = "/admin/systemInformation/findById";
 /*获取系统消息分页信息*/
-export const custmoerList = "/admin/systemInformation/findByPage";
+export const systemInformationPage = "/admin/systemInformation/findByPage";
 
 /*添加用户*/
-export const custmoerList = "/admin/userManage/add";
+export const userManageAdd = "/admin/userManage/add";
 /*编辑用户*/
-export const custmoerList = "/admin/userManage/edit";
+export const userManageEdit = "/admin/userManage/edit";
 /*删除用户*/
-export const custmoerList = "/admin/userManage/delete";
+export const userManageDelete = "/admin/userManage/delete";
 /*根据ID获取用户详情*/
-export const custmoerList = "/admin/userManage/findById";
+export const userManageById = "/admin/userManage/findById";
 /*获取用户分页信息*/
-export const custmoerList = "/admin/userManage/findByPage";
+export const userManagePage = "/admin/userManage/findByPage";

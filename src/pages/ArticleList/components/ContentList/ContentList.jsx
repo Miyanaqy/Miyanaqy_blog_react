@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import TaskTable from './components/TaskTable';
-import PictureTextList from './components/PictureTextList';
+import Filter from './Filter';
+import Lists from './Lists';
 
-export default class Task extends Component {
-  static displayName = 'Task';
+export default class ContentList extends Component {
+  static displayName = 'ContentList';
 
   static propTypes = {};
 
@@ -17,7 +17,8 @@ export default class Task extends Component {
   render() {
     return (
       <div>
-        <PictureTextList />
+        <Filter />
+        <Lists />
       </div>
     );
   }

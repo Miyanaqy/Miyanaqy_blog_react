@@ -8,6 +8,9 @@ import Setting from './pages/Setting';
 import Dashboard from './pages/Dashboard';
 import Builder from './pages/Builder';
 import Task from './pages/Task';
+import ArticleList from './pages/ArticleList';
+import BasicLayout from './layouts/BasicLayout';
+import UserPage from './pages/UserPage';
 import New from './pages/New';
 
 const routerConfig = [
@@ -38,6 +41,16 @@ const routerConfig = [
   {
     path: '/setting',
     component: Setting,
+  },
+  {
+    path: '/articleList',
+    layout: BasicLayout,
+    component: ArticleList,
+  },
+  {
+    path: '/userPage',
+    layout: BasicLayout,
+    component: UserPage,
   },
 ];
 

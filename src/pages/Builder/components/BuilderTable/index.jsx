@@ -4,7 +4,7 @@ import DataBinder from '@icedesign/data-binder';
 import { Radio } from '@alifd/next';
 import CustomTable from '../../../../components/CustomTable';
 import TableFilter from '../TableFilter';
-import { delCategory, categoryList } from '../../../../api/apiUrl';
+import { delCategory, categoryList } from '../../../../api/adminUrl';
 import { postServer, getServer, hashUrl } from '../../../../api';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -89,10 +89,6 @@ export default class BuilderTable extends Component {
       if (filterFormValue[key] === "")  filterFormValue[key] = undefined;
  });
     let param = data ? { ...data, ...filterFormValue } : filterFormValue;
-    // let param = {page: 0, size: 10,};
-    //console.log(param);
-    // let res = await postServer(accountList, param);
-    // console.log(res);
     this.props.updateBindingData('findList', { 
       url: hashUrl(categoryList),
       data: param 
