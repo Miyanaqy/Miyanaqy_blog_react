@@ -31,7 +31,7 @@ export default class Home extends Component {
         current,
       },
       () => {
-        this.props.onChange();
+        this.props.onChange(this.state.current);
       }
     );
   };

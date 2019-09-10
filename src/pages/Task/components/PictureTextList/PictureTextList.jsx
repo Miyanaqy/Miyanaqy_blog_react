@@ -255,6 +255,7 @@ export default class PictureTextList extends Component {
 
   render() {
     let content;
+    //获取绑定的数据内容
     const  { findList } = this.props.bindingData;
     if (findList) {
       content = findList.content;

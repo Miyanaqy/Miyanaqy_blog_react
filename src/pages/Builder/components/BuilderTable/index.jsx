@@ -24,7 +24,8 @@ import styles from './index.module.scss';
 export default class BuilderTable extends Component {
 
   static displayName = 'BuilderTable';
-
+  
+  //参数初始化
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
@@ -46,15 +47,18 @@ export default class BuilderTable extends Component {
     }
   }
 
+  //生命周期函数 - 页面加载完成后执行
   componentDidMount() {
     this.fetchData();
   }
 
+  //跳页函数
   jumpToPage = (page) => {
     const { history } = this.props
     history.push(page)
   }
 
+  //删除警告
   refuseExtractionConfirm = (id) => {
     Dialog.confirm({
       content: "确定要删除该分类信息吗？",
@@ -67,6 +71,7 @@ export default class BuilderTable extends Component {
     });
   }
 
+  //删除接口调用
   async refuseExtraction(id) {
     const that = this
     let params = {state: "ACTIVE"};
@@ -83,20 +88,21 @@ export default class BuilderTable extends Component {
     }
   }
 
+  //获取数据
   fetchData = async (data) => {
     let filterFormValue = { ...this.state.filterFormValue };
     Object.keys(filterFormValue).forEach(function(key){
       if (filterFormValue[key] === "")  filterFormValue[key] = undefined;
- });
+    });
     let param = data ? { ...data, ...filterFormValue } : filterFormValue;
     this.props.updateBindingData('findList', { 
       url: hashUrl(categoryList),
-      data: param 
+      params: param 
     });
   };
 
   changePage = (currentPage) => {
-    this.fetchData({ page: currentPage - 1 });
+    this.fetchData({ page: currentPage });
   };
 
   filterFormChange = (value) => {
@@ -105,10 +111,10 @@ export default class BuilderTable extends Component {
     });
   };
 
-  filterTable = () => {
-    console.log(this.state.filterFormValue);
+  filterTable = (filterFormValue) => {
+    console.log(filterFormValue);
     this.fetchData({
-      ...this.state.filterFormValue,
+      ...filterFormValue,
     });
   };
 
@@ -207,12 +213,12 @@ export default class BuilderTable extends Component {
             })}
           </Radio.Group>
         </div>
-        <TableFilter />
+        <TableFilter handleSubmit={this.filterTable} />
         <CustomTable
           columns={this.columnsConfig()}
           dataSource={data}
           isLoading={isLoading}
-          onChange={this.fetchData}
+          onChange={this.changePage}
         />
       </IceContainer>
     );

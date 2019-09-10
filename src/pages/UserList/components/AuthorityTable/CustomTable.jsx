@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Pagination, Balloon, Icon } from '@icedesign/base';
-import IceContainer from '@icedesign/container';
 import DataBinder from '@icedesign/data-binder';
-import { Radio } from '@alifd/next';
-import CustomTable from '../../../../components/CustomTable';
-import TableFilter from '../TableFilter';
 import { delCategory, categoryList } from '../../../../api/adminUrl';
 import { postServer, getServer, hashUrl } from '../../../../api';
 import { withRouter } from 'react-router-dom';
@@ -41,24 +37,27 @@ const getData = () => {
   },
 })
 export default class Home extends Component {
+
   static displayName = 'Home';
 
-  static displayName = 'BuilderTable';
-
+  //属性类型定义
   static propTypes = {
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
   };
 
+  //默认初始化
   static defaultProps = {};
 
+  //值初始化
   state = {
     isLoading: false,
     data: [],
     activeIndex: null,
   };
 
+  //筛选参数初始化
   constructor(props) {
     super(props);
     this.state = {
@@ -66,15 +65,18 @@ export default class Home extends Component {
     }
   }
 
+  //生命周期函数 - 启动后执行
   componentDidMount() {
     this.fetchData();
   }
 
+  //跳页函数
   jumpToPage = (page) => {
     const { history } = this.props
     history.push(page)
   }
 
+  //删除警告
   refuseExtractionConfirm = (id) => {
     Dialog.confirm({
       content: "确定要删除该分类信息吗？",
@@ -87,6 +89,7 @@ export default class Home extends Component {
     });
   }
 
+  //删除接口调用
   async refuseExtraction(id) {
     const that = this
     let params = {state: "ACTIVE"};
@@ -103,6 +106,7 @@ export default class Home extends Component {
     }
   }
 
+  //异步数据加载
   fetchData = async (data) => {
     let filterFormValue = { ...this.state.filterFormValue };
     Object.keys(filterFormValue).forEach(function(key){
@@ -115,16 +119,19 @@ export default class Home extends Component {
     });
   };
 
+  //页数变更
   changePage = (currentPage) => {
     this.fetchData({ page: currentPage - 1 });
   };
 
+  //筛选参数变更
   filterFormChange = (value) => {
     this.setState({
       filterFormValue: value,
     });
   };
 
+  //筛选参数组合
   filterTable = () => {
     console.log(this.state.filterFormValue);
     this.fetchData({
@@ -185,6 +192,12 @@ export default class Home extends Component {
 
   render() {
     const { dataSource } = this.state;
+    let content;
+    const  { findList } = this.props.bindingData;
+    if (findList) {
+      content = findList.content;
+    }
+    if (!content) content = [{}];
     return (
       <div style={styles.tableContainer}>
         <Table
