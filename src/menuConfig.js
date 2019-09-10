@@ -30,16 +30,6 @@ const asideMenuConfig = [
     external: true,
     newWindow: true,
   },
-  {
-    name: '\u6587\u7AE0\u5217\u8868',
-    path: '/articleList',
-    icon: 'home',
-  },
-  {
-    name: '\u7528\u6237\u9875\u9762',
-    path: '/userPage',
-    icon: 'home',
-  },
 ];
 
 const headerMenuConfig = asideMenuConfig;
